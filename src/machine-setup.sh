@@ -33,6 +33,9 @@ if [ "$platform" = "no_platform_specified" ]; then
     elif [[ -d /gpfs/hps && -e /etc/SuSE-release ]] ; then
         # We are on NOAA Luna or Surge
         platform=wcoss_cray
+    elif [[ -L /usrx && "$( readlink /usrx 2> /dev/null )" =~ dell ]] ; then
+        # We are on NOAA Venus or Mars
+        platform=wcoss_dell_p3
     elif [[ -d /dcom && -d /hwrf ]] ; then
         # We are on NOAA Tide or Gyre
         platform=wcoss
@@ -45,6 +48,9 @@ if [ "$platform" = "no_platform_specified" ]; then
     elif [[ "$(hostname)" =~ "odin" ]]; then
         # We are on odin
         platform=odin
+    elif [[ "$(hostname)" =~ "stampede" ]]; then
+        # We are on login?.stampede2.tacc.utexas.edu
+        platform=stampede
     else
         # We are on an unknown machine
         echo WARNING: UNKNOWN PLATFORM 1>&2
@@ -67,7 +73,7 @@ if [ "$target" = "jet" ] ; then
         source /apps/lmod/lmod/init/$__ms_shell
     fi
     module purge
-    export NCEPLIBS=/mnt/lfs3/projects/hfv3gfs/gwv/ljtjet/lib
+    export NCEPLIBS=/lfs4/HFIP/hfv3gfs/nwprod/NCEPLIBS/modulefiles
     echo NCEPLIBS HARD SET to  $NCEPLIBS in `pwd`/module_setup.sh.inc
     module use $NCEPLIBS/modulefiles
 elif [ "$target" = "theia" ] || [ "$target" = "hera" ] ; then
@@ -112,13 +118,12 @@ elif [ "$target" = "wcoss_cray" ] ; then
     module use /opt/modulefiles
     module load modules
 
-elif [[ -L /usrx && "$( readlink /usrx 2> /dev/null )" =~ dell ]] ; then
+elif [ "$target" = "wcoss_dell_p3" ] ; then
     # We are on NOAA Venus or Mars
     if ( ! eval module help > /dev/null 2>&1 ) ; then
         echo load the module command 1>&2
         source /usrx/local/prod/lmod/lmod/init/$__ms_shell
     fi
-    target=wcoss_dell_p3
     module purge 
     module use /usrx/local/dev/modulefiles
 
@@ -146,6 +151,8 @@ elif [ "$target" = "gaea" ] ; then
     module purge
 elif [ "$target" = "odin" ] ; then
     echo "Not doing anything for 'odin', if statement reserved for future use"
+elif [[ "$target" =~ "stampede" ]] ; then
+    echo "Not doing anything for 'stampede', if statement reserved for future use"
 else
     echo WARNING: UNKNOWN PLATFORM 1>&2
 fi

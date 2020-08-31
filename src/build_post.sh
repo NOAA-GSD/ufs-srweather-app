@@ -23,7 +23,7 @@ if [ "$target" = "jet" ] ; then
 elif [ "$target" = "hera" ] ; then
   ./compile hera
 elif [ "$target" = "wcoss_cray" ] ; then
-  ./compile wcross_cray
+  ./compile cray-intel
 elif [ "$target" = "wcoss_dell_p3" ] ; then
   ./compile wcoss_dell_p3
 elif [ "$target" = "wcoss" ] ; then
@@ -41,7 +41,9 @@ EOT
 elif [ "$target" = "gaea" ] ; then
     echo "Not doing anything for 'gaea', if statement reserved for future use"
 elif [ "$target" = "odin" ] ; then
-    echo "Not doing anything for 'odin', if statement reserved for future use"
+    ./compile odin
+elif [ "$target" = "stampede" ] ; then
+    ./compile stampede
 else
     echo WARNING: UNKNOWN PLATFORM 1>&2
 fi
