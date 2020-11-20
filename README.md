@@ -108,8 +108,10 @@ below will fail verbosely if this step has been skipped.
     cd regional_workflow
     mkdir fix
     cd fix
-    ln -sf /mnt/lfs4/BMC/nrtrr/RRFS/fix/fix_am.20201001 fix_am
+    ln -sf /mnt/lfs4/BMC/nrtrr/RRFS/fix/fix_am.20201001  fix_am
     ln -sf /mnt/lfs4/BMC/nrtrr/RRFS/fix/fix_lam.20201001 fix_lam
+    ln -sf /home/rtrr/FIX_EXEC_MODULE/crtm/CRTM_v2.3.0   fix_crtm
+    ln -sf /mnt/lfs4/BMC/nrtrr/RRFS/fix/fix_gsi          fix_gsi
 
 ### Configuring
 
