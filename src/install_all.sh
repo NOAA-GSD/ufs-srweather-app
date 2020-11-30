@@ -93,6 +93,19 @@ $Build_gsi && {
  ${CP} regional_gsi.fd/exec/test_nc_unlimdims.x        ../exec/regional_test_nc_unlimdims.x
 }
 
+#------------------------------------
+# install gsi
+#------------------------------------
+$Build_rrfs_utl && {
+ ${CP} rrfs_utl/build/bin/fv3sar_novarcldana.exe       ../exec/fv3sar_novarcldana.exe
+ ${CP} rrfs_utl/build/bin/process_Lightning_bufr.exe   ../exec/process_Lightning_bufr.exe
+ ${CP} rrfs_utl/build/bin/process_Lightning_nc.exe     ../exec/process_Lightning_nc.exe
+ ${CP} rrfs_utl/build/bin/process_metarcld.exe         ../exec/process_metarcld.exe
+ ${CP} rrfs_utl/build/bin/process_NSSL_mosaic.exe      ../exec/process_NSSL_mosaic.exe
+ ${CP} rrfs_utl/build/bin/process_larccld.exe          ../exec/process_larccld.exe
+ ${CP} rrfs_utl/build/bin/ref2tten.exe                 ../exec/ref2tten.exe
+}
+
 echo;echo " .... Install system finished .... "
 
 exit 0
