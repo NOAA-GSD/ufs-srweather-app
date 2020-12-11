@@ -82,7 +82,7 @@ Building need be done only once if no source code is changed.
 
 - Clone the ufs-srweather-app repository.
 ```
-    git clone https://github.com/NOAA-GSD/ufs-srweather-app.git gsd-srweather-app
+    git clone https://github.com/NOAA-GSL/ufs-srweather-app.git gsd-srweather-app
     cd gsd-srweather-app
     git checkout feature/RRFS_dev2
 ```
