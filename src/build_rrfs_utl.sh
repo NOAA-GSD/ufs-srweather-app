@@ -13,7 +13,7 @@ fi
 
 # Check final exec folder exists
 if [ ! -d "../exec" ]; then
-  mkdir ../exec
+  mkdir -p ../exec
 fi
 
 cd rrfs_utl

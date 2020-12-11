@@ -13,7 +13,7 @@ fi
 
 # Check final exec folder exists
 if [ ! -d "../exec" ]; then
-  mkdir ../exec
+  mkdir -p ../exec
 fi
 
 cd gsi
@@ -22,28 +22,6 @@ if [ "$target" = "jet" ] ; then
   ./ush/build.comgsi
 elif [ "$target" = "hera" ] ; then
   ./ush/build.comgsi
-#elif [ "$target" = "wcoss_cray" ] ; then
-#  ./compile cray-intel
-#elif [ "$target" = "wcoss_dell_p3" ] ; then
-#  ./compile wcoss_dell_p3
-#elif [ "$target" = "wcoss" ] ; then
-#  ./compile wcoss
-#elif [ "$target" = "cheyenne" ] ; then
-#  #Definitely need to make this bit machine-agnostic in the future...
-#  . /glade/u/apps/ch/opt/lmod/8.1.7/lmod/8.1.7/init/sh
-#  moduledir=$(readlink -f ../../regional_workflow/modulefiles/)
-#  module use $moduledir
-#  module load cheyenne.default
-#  ./configure << EOT
-#4
-#EOT
-#  ./compile
-#elif [ "$target" = "gaea" ] ; then
-#    echo "Not doing anything for 'gaea', if statement reserved for future use"
-#elif [ "$target" = "odin" ] ; then
-#    ./compile odin
-#elif [ "$target" = "stampede" ] ; then
-#    ./compile stampede
 else
     echo WARNING: UNKNOWN PLATFORM 1>&2
 fi
