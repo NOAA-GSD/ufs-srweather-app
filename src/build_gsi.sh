@@ -11,16 +11,9 @@ else
   export MOD_PATH=${cwd}/lib/modulefiles
 fi
 
-# Check final exec folder exists
-if [ ! -d "../exec" ]; then
-  mkdir -p ../exec
-fi
-
 cd gsi
 
-if [ "$target" = "jet" ] ; then
-  ./ush/build.comgsi
-elif [ "$target" = "hera" ] ; then
+if [ "$target" = "jet" ] ||  [ "$target" = "hera" ] ; then
   ./ush/build.comgsi
 else
     echo WARNING: UNKNOWN PLATFORM 1>&2

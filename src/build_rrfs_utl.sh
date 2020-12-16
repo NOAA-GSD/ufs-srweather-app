@@ -11,16 +11,9 @@ else
   export MOD_PATH=${cwd}/lib/modulefiles
 fi
 
-# Check final exec folder exists
-if [ ! -d "../exec" ]; then
-  mkdir -p ../exec
-fi
-
 cd rrfs_utl
 
-if [ "$target" = "jet" ] ; then
-  ./build.rrfs_utl
-elif [ "$target" = "hera" ] ; then
+if [ "$target" = "jet" ] || [ "$target" = "hera" ] ; then
   ./build.rrfs_utl
 else
     echo WARNING: UNKNOWN PLATFORM 1>&2
