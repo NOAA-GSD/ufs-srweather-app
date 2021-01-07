@@ -54,4 +54,4 @@ export CCPP_SUITES="FV3_GSD_SAR,FV3_HRRR"
 #---------------------------------------------------------------------------------
 # Copy executable (named ufs_weather_model) to tests dir so workflow can find it
 #---------------------------------------------------------------------------------
-cp ${model_top_dir}/ufs_weather_model ${model_top_dir}/tests/fv3.exe
+cp ${model_top_dir}/build/ufs_model ${model_top_dir}/tests/fv3.exe
