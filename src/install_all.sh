@@ -68,6 +68,7 @@ fi
 #------------------------------------
 $Build_gsi && {
  ${CP} gsi/build/bin/gsi.x                             ../exec/gsi.exe
+ ${CP} gsi/build/bin/ncdiag_cat.x                      ../exec/ncdiag_cat.x
 # ${CP} regional_gsi.fd/exec/global_gsi.x               ../exec/regional_gsi.x
 # ${CP} regional_gsi.fd/exec/global_enkf.x              ../exec/regional_enkf.x
 # ${CP} regional_gsi.fd/exec/adderrspec.x               ../exec/regional_adderrspec.x
