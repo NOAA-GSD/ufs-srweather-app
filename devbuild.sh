@@ -68,22 +68,10 @@ fi
 # Source the README file for this platform/compiler combination, then build the code
 . $ENV_FILE
 
-cp src/CMakeLists.txt_model src/CMakeLists.txt
 mkdir -p ${BUILD_DIR}
 cd ${BUILD_DIR}
 cmake .. -DCMAKE_INSTALL_PREFIX=.
 make -j ${BUILD_JOBS:-4}
-mv bin ../.
-
-cd ..
-cp src/CMakeLists.txt_DA src/CMakeLists.txt
-. ${ENV_FILE}_DA
-rm -fr ${BUILD_DIR}
-mkdir -p ${BUILD_DIR}
-cd ${BUILD_DIR}
-cmake .. -DCMAKE_INSTALL_PREFIX=.
-make -j ${BUILD_JOBS:-4}
-cd bin
-cp * ../../bin/.
+cp -r bin ../.
 
 exit 0
