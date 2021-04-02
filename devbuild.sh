@@ -70,8 +70,7 @@ fi
 
 mkdir -p ${BUILD_DIR}
 cd ${BUILD_DIR}
-cmake .. -DCMAKE_INSTALL_PREFIX=.
+cmake .. -DCMAKE_INSTALL_PREFIX=..
 make -j ${BUILD_JOBS:-4}
-cp -r bin ../.
 
 exit 0
