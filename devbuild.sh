@@ -73,4 +73,18 @@ cd ${BUILD_DIR}
 cmake .. -DCMAKE_INSTALL_PREFIX=..
 make -j ${BUILD_JOBS:-4}
 
+. ${MYDIR}/${ENV_FILE}_DA
+cd ${BUILD_DIR}
+mkdir build_gsi
+cd build_gsi
+cmake ${MYDIR}/src/gsi -DBUILD_CORELIBS=ON -DCMAKE_INSTALL_PREFIX=..
+make -j ${BUILD_JOBS:-4}
+
+. ${MYDIR}/${ENV_FILE}_DA
+cd ${BUILD_DIR}
+mkdir build_rrfs_utl
+cd build_rrfs_utl
+cmake ${MYDIR}/src/rrfs_utl -DCMAKE_INSTALL_PREFIX=..
+make -j ${BUILD_JOBS:-4}
+
 exit 0
