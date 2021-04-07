@@ -90,14 +90,14 @@ Building need be done only once if no source code is changed.
     source /etc/profile.d/modules.sh
     source env/build_jet_intel.env
 ```
-- Build the code (from top level SRW App).
+- Build the code for UFS_UTILS, ufs_weather_model, and UPP only(from top level SRW App).
 ```
     mkdir build
     cd build
     cmake .. -DCMAKE_INSTALL_PREFIX=..
     make -j 4 2>&1 | tee build.log
 ```
-- You can also use devbuild.sh to build the code (from top level SRW App).
+- You can also use devbuild.sh to build all the code including data assimilation components (from top level SRW App).
 ```
     On Jet        :   devbuild.sh jet intel 
     On Hera       :   devbuild.sh hera intel 
@@ -141,9 +141,10 @@ You will also likely want to change the dates over which to run:
     DATE_FIRST_CYCL
     DATE_LAST_CYCL
 
-The deault is cold start only. You ican turn on data assimilation cycling by setting:
+The run can be configured as cold start only or data assimilation cycling by setting:
 
-    DO_DACYCLE="true"
+    DO_DACYCLE="false"  : cold start only
+    DO_DACYCLE="true"   : data assimilation cycling
 
 The configure script should then be linked to the expected name:
 
