@@ -95,11 +95,11 @@ this step.  This selection is made at compile time by editing
 ```
     vi src/ufs_weather_model/CMakeLists.txt
 ```
-  and then locating this line:
+   and then locating this line:
 ```
     set(32BIT           OFF  CACHE BOOL "Enable 32BIT (single precision arithmetic in dycore)")
 ```
-  where "OFF" should be changed to "ON". 
+   where "OFF" should be changed to "ON". 
 - Build the code for UFS_UTILS, ufs_weather_model, and UPP only(from top level SRW App).
 ```
     mkdir build
