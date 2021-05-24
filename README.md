@@ -123,10 +123,8 @@ space for the following variables:
     PTMP           # run directory 
 
 You will also likely want to change the dates over which to run and other configurations based on the experiment purpose.
-More detailed instruction on setting up config.sh file can be found:
+Please read "[Set up RRFS real-time and restrospective runs](Setup-RRFS.md)" for detailed instruction on setting up config.sh file.
  
-https://github.com/NOAA-GSL/regional_workflow/wiki/Setup-RRFS-real-time-and-retrospective-runs
-
 The configure script should then be linked to the expected name:
 
     ln -sf config.sh.RRFS_dev1 config.sh
