@@ -4,12 +4,13 @@ from collections import OrderedDict
 from configparser import ConfigParser
 import datetime as dt
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
 import time
 
-LOGFILE_LOC = '.'
+LOGFILE_LOC = os.getcwd()
 DOMAINS = ['CONUS', 'AK', 'NA3km', 'NA13km', 'RTMA']
 
 class cd:
@@ -30,7 +31,6 @@ def clean_tmp(fileobj):
 
     ''' Close and remove an open file object. '''
     fileobj.close()
-    os.remove(fileobj.name)
 
 def get_repo_info():
 
@@ -198,13 +198,21 @@ def logit(logfile, tmpfile):
             # Open the lock file
             fd = open(lock_file, 'w')
 
-            # Cat the file to the log file.
-            subprocess.check_call(f"cat {tmpfile.name} {logfile} > {logfile}")
+            try:
+                with open(logfile, 'r') as log:
+                    for line in log:
+                        tmpfile.write(line)
 
-            # Close and remove the lock file
-            fd.close()
-            if os.path.exists(lock_file):
-                os.remove(lock_file)
+                tmpfile.close()
+
+                shutil.move(tmpfile.name, logfile)
+            except:
+                raise
+            finally:
+                # Close and remove the lock file
+                fd.close()
+                if os.path.exists(lock_file):
+                    os.remove(lock_file)
 
             break
 
