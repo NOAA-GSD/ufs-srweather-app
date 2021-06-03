@@ -11,7 +11,7 @@ import sys
 import tempfile
 import time
 
-LOGFILE_LOC = os.getcwd()
+LOGFILE_LOC = '/misc/whome/rtrr/RRFS/'
 DOMAINS = ['CONUS', 'AK', 'NA3km', 'NA13km', 'RTMA', 'all']
 
 class cd:
