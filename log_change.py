@@ -1,3 +1,33 @@
+'''
+
+This is an interactive script that generates a changelog entry for any changes
+implemented to real time RRFS runs. It asks the user a variety of RRFS-specific
+questions, interrogates the UFS SRW App and its 1st-level Externals (submodules)
+to determine if they are consistent with the code on disk, and generates a log
+file with relevant tracking information.
+
+Note: It is important to continue to use this logging script, even for changes
+that occur outside the clone, even though those changes will not be captured in
+the git information for the log file.
+
+The log file will be appended to those in /misc/whome/rtrr/RRFS/
+
+Requirements:
+
+    Python 3.6+
+
+Conda Environment:
+
+    module use /contrib/miniconda3/modulefiles
+    module load miniconda3
+    module load regional_workflow
+
+Usage:
+
+    python log_change.py -h
+
+'''
+
 #pylint: disable=invalid-name
 import argparse
 from collections import OrderedDict
@@ -27,11 +57,6 @@ class cd:
 
     def __exit__(self, etype, value, traceback):
         os.chdir(self.savedPath)
-
-def clean_tmp(fileobj):
-
-    ''' Close and remove an open file object. '''
-    fileobj.close()
 
 def get_repo_info():
 
@@ -107,8 +132,7 @@ def get_user_info():
             {'question': "Are your changes in the repo? (Y/N)\n",
              'check': isbool,
             },
-        }
-        )
+        })
 
     user_info = OrderedDict()
     for info, gather in user_questions.items():
@@ -203,18 +227,28 @@ def logit(logfile, tmpfile):
             fd = open(lock_file, 'w')
 
             try:
+                # Create a logfile backup just in case. Make it a hidden file.
+                # Won't remove this one in the script in case something goes
+                # wrong.
+                path, fname = os.path.abspath(logfile), os.path.basename(logfile)
+                shutil.copy(logfile, os.path.join(path, f".{fname}._bk"))
+
+                # Write the contents of the logfile to the tempfile for reverse
+                # cronological order.
                 with open(logfile, 'r') as log:
                     for line in log:
                         tmpfile.write(line)
-
                 tmpfile.close()
 
+                # Rename tempfile to logfile
                 shutil.move(tmpfile.name, logfile)
+
                 # Set open read permissions
                 os.chmod(logfile,
-                    stat.S_IWUSR | stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH,
-                    )
+                         stat.S_IWUSR | stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH,
+                         )
             except:
+                print('Something went wrong writing the logfile')
                 raise
             finally:
                 # Close and remove the lock file
@@ -229,7 +263,6 @@ def logit(logfile, tmpfile):
 
 #pylint: disable=inconsistent-return-statements
 def print_dict(d, depth=0, sep=None):
-
 
     ''' Recurse through dict entries to print them '''
 
@@ -278,7 +311,7 @@ def main(cla):
                 logfile = os.path.join(LOGFILE_LOC, f'{cla.dev_name}.log')
                 print(f'Adding your log message to {logfile}')
                 logit(logfile, message_file)
-                clean_tmp(message_file)
+                message_file.close()
                 happy = True
                 break
             elif answer.lower()[0] == 'n':
@@ -286,7 +319,7 @@ def main(cla):
                 kill = input("Type retry to enter new info: ")
 
                 if not kill:
-                    clean_tmp(message_file)
+                    message_file.close()
                     sys.exit()
                 elif kill.lower()[0] == "r":
                     print()
@@ -296,13 +329,11 @@ def main(cla):
                     print()
                     break
                 else:
-                    clean_tmp(message_file)
+                    message_file.close()
                     sys.exit()
 
             else:
                 print(f'Please enter a Y/N response. ')
-
-
 
 if __name__ == '__main__':
 
