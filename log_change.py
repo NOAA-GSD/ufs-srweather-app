@@ -5,13 +5,14 @@ from configparser import ConfigParser
 import datetime as dt
 import os
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
 import time
 
 LOGFILE_LOC = os.getcwd()
-DOMAINS = ['CONUS', 'AK', 'NA3km', 'NA13km', 'RTMA']
+DOMAINS = ['CONUS', 'AK', 'NA3km', 'NA13km', 'RTMA', 'all']
 
 class cd:
 
@@ -79,8 +80,11 @@ def get_user_info():
     user_questions = OrderedDict({
         'name':
             {'question': "Your name: \n"},
-        'description':
-            {'question': "Short description of change: \n"},
+        'changes':
+            {'question': "What changed? \n"},
+        'components':
+            {'question': "What components were affected? (jobs, scripts, " \
+                "configuration layer, model configuration, etc.) \n"},
         'first_cycle':
             {'question': "First cycle in effect (YYYYMMDDHH): \n",
              'check': isdate,
@@ -206,6 +210,10 @@ def logit(logfile, tmpfile):
                 tmpfile.close()
 
                 shutil.move(tmpfile.name, logfile)
+                # Set open read permissions
+                os.chmod(logfile,
+                    stat.S_IWUSR | stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH,
+                    )
             except:
                 raise
             finally:
@@ -230,7 +238,8 @@ def print_dict(d, depth=0, sep=None):
 
     for key, value in d.items():
         if isinstance(value, dict):
-            emphasis = sep * 32 if sep is not None else ''
+            sep_len = 80 - len(key) - 2
+            emphasis = sep * sep_len if sep is not None else ''
             print(f'{key}: {emphasis}')
             print_dict(value, depth+2)
         else:
