@@ -9,7 +9,7 @@ For the most up-to-date instructions on how to clone the repository, build the c
 https://github.com/ufs-community/ufs-srweather-app/wiki/Getting-Started
 
 
-# Modifications for the RRFS_dev1
+# Modifications for the RRFS_dev2
 
 This branch supports additional features for running real-time RRFS runs
 at GSL on Jet/WCOSS. The branch's default configuration has not been tested on
@@ -78,7 +78,7 @@ Building need be done only once if no source code is changed.
 ```
     git clone https://github.com/NOAA-GSL/ufs-srweather-app.git gsl-srweather-app
     cd gsl-srweather-app
-    git checkout feature/RRFS_dev1
+    git checkout feature/RRFS_dev2
 ```
 - And retrieve the externals.
 ```
@@ -108,11 +108,11 @@ to be updated consistently with each other:
 > identical names set in the Rocoto XML.
 
 #### User-specific settings
-Before running the RRFS_dev1 configuration, you will need to change your
+Before running the RRFS_dev2 configuration, you will need to change your
 output directories by editing the config file:
 
     cd regional_workflow/ush
-    vi config.sh.RRFS_dev1
+    vi config.sh.RRFS_dev2
 
 Inside the config file, ensure that you are point to your preferred user
 space for the following variables:
@@ -127,7 +127,7 @@ Please read "[Set up RRFS real-time and restrospective runs](Setup-RRFS.md)" for
  
 The configure script should then be linked to the expected name:
 
-    ln -sf config.sh.RRFS_dev1 config.sh
+    ln -sf config.sh.RRFS_dev2 config.sh
 
 ## Build the workflow
 
@@ -169,7 +169,7 @@ Tutorial](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-wo
 for more information.
 
 All development should be done in a branch of your personal fork, then
-contributed back to the feature/RRFS_dev1 branch through a Pull Request
+contributed back to the feature/RRFS_dev2 branch through a Pull Request
 on GitHub.
 
 ## Pull Requests
@@ -199,7 +199,7 @@ the repository structures are "pull only".
 Changes to the real-time runs should be made through the Pull Request
 process and subsequently pulled into the relevant repositories upon
 successfully merging with the appropriate feature branch, e.g.
-feature/RRFS_dev1 in the regional_workflow repository.
+feature/RRFS_dev2 in the regional_workflow repository.
 
 Minor hot fixes are allowed to be made in-place for the real-time runs,
 especially since many setting will be a result of the configuration
@@ -234,7 +234,7 @@ actions to fully update the system.
 ### Changes to a configuration setting.
 
 - The changes should be committed as changes to the configuration
-  file(s), potentially config.sh.RRFS_dev1 and config.sh.RRFS_AK_dev1.
+  file(s), potentially config.sh.RRFS_dev2 and config.sh.RRFS_AK_dev2.
 - It's a good idea to go through a PR first for these settings since so
   many of them have repercussions to XML and scripts.
 - For minor changes, a manual update of the var_defns.sh file to reflect
