@@ -78,11 +78,12 @@ cd ${MYDIR}/src/gsi
 cp ${MYDIR}/src/gsi/build/bin/gsi.x ${MYDIR}/bin/gsi.x
 
 . ${MYDIR}/${ENV_FILE}_DA
-cd ${BUILD_DIR}
-mkdir -p build_rrfs_utl
-cd build_rrfs_utl
-cmake ${MYDIR}/src/rrfs_utl -DCMAKE_INSTALL_PREFIX=.
+cd ${MYDIR}/src/rrfs_utl
+mkdir -p build
+cd build
+cmake ..
 make -j ${BUILD_JOBS:-4}
+mkdir -p ${MYDIR}/bin
 cp ./bin/* ${MYDIR}/bin/.
 
 exit 0
